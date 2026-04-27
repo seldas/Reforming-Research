@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summary & Conclusion</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; overflow: hidden; }
+        .slide { display: none; height: 100vh; width: 100vw; padding: 4rem; flex-direction: column; justify-content: center; }
+        .slide.active { display: flex; }
+        .gradient-text { background: linear-gradient(135deg, #0ea5e9 0%, #2563eb 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .content-box { background: white; border-radius: 2rem; box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.05); padding: 3rem; border: 1px solid #e2e8f0; }
+        .navigation { position: fixed; bottom: 2rem; right: 2rem; display: flex; gap: 1rem; z-index: 50; }
+        .nav-btn { background: #0f172a; color: white; padding: 0.75rem 1.5rem; border-radius: 0.75rem; font-weight: 700; transition: all 0.2s; display: flex; align-items: center; gap: 0.5rem; }
+        .nav-btn:hover { background: #1e293b; transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+        .nav-btn:disabled { background: #cbd5e1; cursor: not-allowed; transform: none; box-shadow: none; }
+        .slide-counter { position: fixed; bottom: 2rem; left: 2rem; color: #94a3b8; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; }
+        
+        .take-home-card { border-radius: 1.5rem; padding: 2rem; transition: all 0.3s ease; border: 1px solid #e2e8f0; background: white; }
+        .take-home-card:hover { transform: translateY(-10px); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1); border-color: #0ea5e9; }
+    </style>
+</head>
+<body>
+
+    <!-- Slide 1: Conclusion Title -->
+    <div class="slide active" id="slide-1">
+        <div class="max-w-5xl mx-auto w-full text-center">
+            <div class="inline-block px-4 py-1.5 mb-6 bg-blue-100 text-blue-700 rounded-full text-sm font-black uppercase tracking-widest">
+                Closing Remarks
+            </div>
+            <h1 class="text-7xl font-black text-slate-900 mb-8 leading-none tracking-tight">
+                Summary & <span class="gradient-text">Take-Home</span>
+            </h1>
+            <p class="text-2xl text-slate-500 max-w-2xl mx-auto leading-relaxed">
+                Reflecting on the shift from manual research to AI-augmented intelligence.
+            </p>
+            
+            <div class="mt-16 flex justify-center">
+                <div class="p-10 bg-slate-900 rounded-[3rem] text-white shadow-2xl relative overflow-hidden max-w-2xl">
+                    <div class="absolute top-0 right-0 p-8 opacity-10">
+                        <i class="fas fa-quote-right text-6xl"></i>
+                    </div>
+                    <p class="text-2xl font-medium leading-relaxed italic">
+                        "AI doesn't change what we seek; it changes how fast we find it and how boldly we can build."
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 2: The Three Pillars -->
+    <div class="slide" id="slide-2">
+        <div class="max-w-6xl mx-auto w-full">
+            <h2 class="text-4xl font-black text-slate-900 mb-12 text-center tracking-tight">Three Pillars of <span class="text-sky-600">Modern Research</span></h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="take-home-card">
+                    <div class="w-14 h-14 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center text-2xl mb-6">
+                        <i class="fas fa-map-marked-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-4">Planning First</h3>
+                    <p class="text-slate-600">Architectural alignment is critical. Describe intended behavior in plain language before writing code to ensure AI follows your vision.</p>
+                </div>
+                
+                <div class="take-home-card">
+                    <div class="w-14 h-14 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center text-2xl mb-6">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-4">Pilot Expertise</h3>
+                    <p class="text-slate-600">You are the driver. Your domain knowledge is the navigation system; AI is the engine that executes your strategic intent.</p>
+                </div>
+
+                <div class="take-home-card">
+                    <div class="w-14 h-14 bg-sky-100 text-sky-600 rounded-2xl flex items-center justify-center text-2xl mb-6">
+                        <i class="fas fa-redo"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-4">Avoid Revision Trap</h3>
+                    <p class="text-slate-600">Stop patching legacy debt. If a complex issue isn't resolved in two iterations, pivot. It is often faster to rebuild than to repair.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 3: Final Call to Action -->
+    <div class="slide" id="slide-3">
+        <div class="max-w-4xl mx-auto w-full text-center">
+            <h2 class="text-5xl font-black text-slate-900 mb-8 uppercase tracking-tight">The <span class="text-sky-600">Future</span> is Built Today</h2>
+            <div class="content-box bg-slate-900 text-white p-12 mb-12">
+                <h3 class="text-2xl font-bold mb-6 text-sky-400">Take-Home Message:</h3>
+                <ul class="text-left space-y-6 text-xl">
+                    <li class="flex items-start gap-4">
+                        <i class="fas fa-check-circle text-emerald-400 mt-1"></i>
+                        <span><b>Record the journey:</b> Process logs become your best learning assets.</span>
+                    </li>
+                    <li class="flex items-start gap-4">
+                        <i class="fas fa-check-circle text-emerald-400 mt-1"></i>
+                        <span><b>Fail fast:</b> If it doesn't work in 2 turns, pivot the architecture.</span>
+                    </li>
+                    <li class="flex items-start gap-4">
+                        <i class="fas fa-check-circle text-emerald-400 mt-1"></i>
+                        <span><b>Ship fidelity:</b> Modern users expect polished visuals, even in research.</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="flex items-center justify-center gap-4">
+                 <p class="text-slate-400 font-bold uppercase tracking-widest text-sm">Wait, there's one more thing...</p>
+                 <i class="fas fa-arrow-right text-slate-300 animate-bounce"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 4: Hidden Egg (Secret Tips) -->
+    <div class="slide" id="slide-4">
+        <div class="max-w-5xl mx-auto w-full">
+            <div class="flex items-center gap-4 mb-10">
+                <div class="w-16 h-16 bg-yellow-400 rounded-3xl flex items-center justify-center text-slate-900 text-3xl shadow-lg rotate-3">
+                    <i class="fas fa-egg"></i>
+                </div>
+                <h2 class="text-4xl font-black text-slate-900 tracking-tight">Leihong's <span class="text-yellow-500">Secret Pro-Tips</span></h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="content-box border-b-8 border-yellow-400 hover:-rotate-1 transition-transform">
+                    <h3 class="text-2xl font-bold mb-4 text-slate-800">1. Speak Your Heart 💬</h3>
+                    <p class="text-lg text-slate-600 leading-relaxed">
+                        Don't stress over perfect English prompts. Feel free to use Chinese (or any language you think in!) when explaining complex logic. The AI is a polyglot; it understands your intent better when <b>you</b> are comfortable.
+                    </p>
+                </div>
+
+                <div class="content-box border-b-8 border-sky-400 hover:rotate-1 transition-transform">
+                    <h3 class="text-2xl font-bold mb-4 text-slate-800">2. FOMO is a Trap 🦊</h3>
+                    <p class="text-lg text-slate-600 leading-relaxed">
+                        There's a "groundbreaking" AI tool every 15 minutes. Follow the news, but don't feel obligated to marry every new tech. Stick to what solves your problem today. Focus on the <b>Workflow</b>, not just the <b>Widget</b>.
+                    </p>
+                </div>
+
+                <div class="content-box border-b-8 border-emerald-400 md:col-span-2 text-center">
+                    <h3 class="text-2xl font-bold mb-4 text-slate-800">3. It's a Hammer, Not a Rival 🔨</h3>
+                    <p class="text-lg text-slate-600 leading-relaxed max-w-3xl mx-auto">
+                        AI isn't coming for your job—it's coming for your <b>boring tasks</b>. Keep it as your high-speed intern. You are the Architect; the AI is the incredibly fast bricklayer. Don't let the hammer tell you where to build the house!
+                    </p>
+                </div>
+            </div>
+
+            <div class="mt-12 flex flex-col items-center gap-6">
+                <div class="flex gap-4">
+                    <button 
+                        onclick="window.parent.postMessage({ type: 'NAVIGATE', lessonId: 'lesson-1' }, '*')"
+                        class="px-8 py-3 bg-white border-2 border-slate-900 text-slate-900 rounded-full font-bold hover:bg-slate-50 transition-all"
+                    >
+                        Review Lessons
+                    </button>
+                    <button 
+                        onclick="window.parent.postMessage({ type: 'EXPORT_SUMMARY' }, '*')"
+                        class="px-8 py-3 bg-slate-900 text-white rounded-full font-bold hover:bg-slate-800 transition-all shadow-xl"
+                    >
+                        Export Full Summary
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-counter" id="counter">Slide 1 / 4</div>
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)" disabled>
+            <i class="fas fa-chevron-left"></i> Previous
+        </button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">
+            Next <i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 4;
+
+        window.onload = () => {
+            const params = new URLSearchParams(window.location.search);
+            const slideReq = params.get('slide');
+            if (slideReq) goToSlide(parseInt(slideReq));
+        };
+
+        function updateNavigation() {
+            document.getElementById('prevBtn').disabled = currentSlide === 1;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides;
+            document.getElementById('counter').innerText = `Slide ${currentSlide} / ${totalSlides}`;
+        }
+
+        function goToSlide(n) {
+            document.getElementById(`slide-${currentSlide}`).classList.remove('active');
+            currentSlide = n;
+            document.getElementById(`slide-${currentSlide}`).classList.add('active');
+            updateNavigation();
+        }
+
+        function changeSlide(direction) {
+            document.getElementById(`slide-${currentSlide}`).classList.remove('active');
+            currentSlide += direction;
+            document.getElementById(`slide-${currentSlide}`).classList.add('active');
+            updateNavigation();
+        }
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' && currentSlide < totalSlides) changeSlide(1);
+            if (e.key === 'ArrowLeft' && currentSlide > 1) changeSlide(-1);
+        });
+    </script>
+</body>
+</html>

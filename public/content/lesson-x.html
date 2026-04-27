@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Development Process Log</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; overflow: hidden; }
+        .slide { display: none; height: 100vh; width: 100vw; padding: 4rem; flex-direction: column; justify-content: center; }
+        .slide.active { display: flex; }
+        .gradient-text { background: linear-gradient(135deg, #0ea5e9 0%, #2563eb 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .content-box { background: white; border-radius: 2rem; box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.05); padding: 3rem; border: 1px solid #e2e8f0; }
+        .navigation { position: fixed; bottom: 2rem; right: 2rem; display: flex; gap: 1rem; z-index: 50; }
+        .nav-btn { background: #0f172a; color: white; padding: 0.75rem 1.5rem; border-radius: 0.75rem; font-weight: 700; transition: all 0.2s; display: flex; items-center gap: 0.5rem; }
+        .nav-btn:hover { background: #1e293b; transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+        .nav-btn:disabled { background: #cbd5e1; cursor: not-allowed; transform: none; box-shadow: none; }
+        .slide-counter { position: fixed; bottom: 2rem; left: 2rem; color: #94a3b8; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; }
+        
+        .timeline-item { position: relative; padding-left: 3rem; margin-bottom: 2rem; }
+        .timeline-item::before { content: ''; position: absolute; left: 0.75rem; top: 0; bottom: -2rem; width: 2px; background: #e2e8f0; }
+        .timeline-item:last-child::before { display: none; }
+        .timeline-dot { position: absolute; left: 0; top: 0; width: 1.5rem; height: 1.5rem; background: white; border: 4px solid #0ea5e9; border-radius: 50%; z-index: 10; }
+        
+        .check-item { background: #f1f5f9; border-radius: 1rem; padding: 1rem 1.5rem; border-left: 4px solid #10b981; transition: all 0.2s; }
+        .check-item:hover { transform: translateX(5px); background: #f8fafc; }
+
+        /* Modal Styles */
+        #modal-overlay { display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(4px); z-index: 100; align-items: center; justify-content: center; padding: 2rem; }
+        #modal-content { background: white; border-radius: 2rem; max-width: 600px; w-full: 100%; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); overflow: hidden; transform: scale(0.95); transition: transform 0.3s ease; }
+        #modal-overlay.active { display: flex; }
+        #modal-overlay.active #modal-content { transform: scale(1); }
+    </style>
+</head>
+<body>
+
+    <!-- Modal Overlay -->
+    <div id="modal-overlay" onclick="closeModal()">
+        <div id="modal-content" onclick="event.stopPropagation()" class="flex flex-col">
+            <div class="p-8 border-b border-slate-100 flex justify-between items-center">
+                <div class="flex items-center gap-4">
+                    <div id="modal-icon" class="w-12 h-12 bg-sky-100 text-sky-600 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-terminal"></i>
+                    </div>
+                    <div>
+                        <h4 id="modal-title" class="text-xl font-black text-slate-900 tracking-tight">Session Details</h4>
+                        <p id="modal-subtitle" class="text-xs font-bold text-slate-400 uppercase tracking-widest">Build Log Entry</p>
+                    </div>
+                </div>
+                <button onclick="closeModal()" class="w-10 h-10 rounded-full hover:bg-slate-100 text-slate-400 flex items-center justify-center transition-colors">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div id="modal-body" class="p-10 text-slate-600 leading-relaxed text-lg">
+                <!-- Content injected via JS -->
+            </div>
+            <div class="p-8 bg-slate-50 border-t border-slate-100 flex justify-end">
+                <button onclick="closeModal()" class="px-6 py-2 bg-slate-900 text-white rounded-xl font-bold text-sm hover:bg-slate-800 transition-colors">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 1: Cover -->
+    <div class="slide active" id="slide-1">
+        <div class="max-w-5xl mx-auto w-full text-center">
+            <div class="inline-block px-4 py-1.5 mb-6 bg-sky-100 text-sky-700 rounded-full text-sm font-black uppercase tracking-widest">
+                Technical Retrospective
+            </div>
+            <h1 class="text-7xl font-black text-slate-900 mb-8 leading-none tracking-tight">
+                Process <span class="gradient-text">Log</span>
+            </h1>
+            <p class="text-2xl text-slate-500 max-w-2xl mx-auto leading-relaxed">
+                Recording every interaction, decision, and architectural pivot during the 3-day development sprint.
+            </p>
+            
+            <div class="mt-16 flex justify-center gap-12">
+                <div class="flex flex-col items-center">
+                    <span class="text-4xl font-black text-slate-900">13</span>
+                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mt-1">Sessions</span>
+                </div>
+                <div class="w-px h-12 bg-slate-200"></div>
+                <div class="flex flex-col items-center">
+                    <span class="text-4xl font-black text-slate-900">48h</span>
+                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mt-1">Build Time</span>
+                </div>
+                <div class="w-px h-12 bg-slate-200"></div>
+                <div class="flex flex-col items-center">
+                    <span class="text-4xl font-black text-slate-900">100%</span>
+                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mt-1">AI Guided</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 2: Timeline Part 1 -->
+    <div class="slide" id="slide-2">
+        <div class="max-w-5xl mx-auto w-full">
+            <div class="flex items-center gap-4 mb-12">
+                <div class="w-12 h-12 bg-slate-900 rounded-2xl flex items-center justify-center text-white">
+                    <i class="fas fa-history"></i>
+                </div>
+                <h2 class="text-4xl font-black text-slate-900 tracking-tight">Phase 1: <span class="text-sky-600">Foundation</span></h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div class="space-y-2">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="text-lg font-black text-slate-900 uppercase">Session 1</h3>
+                                <p class="text-slate-600 mb-2">Project Initialization & Architecture.</p>
+                                <button onclick="showDetails(1)" class="text-xs font-bold text-sky-600 hover:text-sky-700 underline uppercase tracking-widest">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="text-lg font-black text-slate-900 uppercase">Sessions 2-3</h3>
+                                <p class="text-slate-600 mb-2">Technical Setup & Core Navigation.</p>
+                                <button onclick="showDetails(2)" class="text-xs font-bold text-sky-600 hover:text-sky-700 underline uppercase tracking-widest">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="text-lg font-black text-slate-900 uppercase">Sessions 4-8</h3>
+                                <p class="text-slate-600 mb-2">Presentation Polish & PPTX Export.</p>
+                                <button onclick="showDetails(3)" class="text-xs font-bold text-sky-600 hover:text-sky-700 underline uppercase tracking-widest">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-slate-900 rounded-[2.5rem] p-10 text-white shadow-2xl relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-8 opacity-10">
+                        <i class="fas fa-layer-group text-9xl"></i>
+                    </div>
+                    <h3 class="text-sky-400 font-black uppercase tracking-widest text-sm mb-4">Architectural Choice</h3>
+                    <p class="text-2xl font-bold leading-tight mb-6">"Prioritize design fidelity over component complexity."</p>
+                    <ul class="space-y-4 text-slate-400">
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-sky-500"></i> Iframe-based slide isolation</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-sky-500"></i> React state-driven shell</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-sky-500"></i> Dynamic Tailwind via CDN</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 3: Timeline Part 2 -->
+    <div class="slide" id="slide-3">
+        <div class="max-w-5xl mx-auto w-full">
+            <div class="flex items-center gap-4 mb-12">
+                <div class="w-12 h-12 bg-sky-600 rounded-2xl flex items-center justify-center text-white">
+                    <i class="fas fa-vial"></i>
+                </div>
+                <h2 class="text-4xl font-black text-slate-900 tracking-tight">Phase 2: <span class="text-sky-600">Evidence & Scaling</span></h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div class="space-y-2">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="text-lg font-black text-slate-900 uppercase">Sessions 9-10</h3>
+                                <p class="text-slate-600 mb-2">Content Expansion & UI Refinement.</p>
+                                <button onclick="showDetails(4)" class="text-xs font-bold text-sky-600 hover:text-sky-700 underline uppercase tracking-widest">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="text-lg font-black text-slate-900 uppercase">Sessions 11-12</h3>
+                                <p class="text-slate-600 mb-2">Data-Driven Proof & Lesson Assets.</p>
+                                <button onclick="showDetails(5)" class="text-xs font-bold text-sky-600 hover:text-sky-700 underline uppercase tracking-widest">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="text-lg font-black text-slate-900 uppercase">Session 13</h3>
+                                <p class="text-slate-600 mb-2">Final Deployment & Navigation Protocol.</p>
+                                <button onclick="showDetails(6)" class="text-xs font-bold text-sky-600 hover:text-sky-700 underline uppercase tracking-widest">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white border border-slate-200 rounded-[2.5rem] p-10 shadow-xl">
+                    <h3 class="text-sky-600 font-black uppercase tracking-widest text-sm mb-4">Key Innovation</h3>
+                    <p class="text-2xl font-bold text-slate-900 leading-tight mb-6">Cross-Iframe Navigation Protocol</p>
+                    <p class="text-slate-600 mb-6">Developed a robust <code>window.postMessage</code> system allowing slide content to control the main application shell, enabling deep-linking between lessons and demos.</p>
+                    <div class="p-4 bg-slate-50 rounded-xl font-mono text-xs text-slate-500">
+                        window.parent.postMessage({ type: 'NAVIGATE', lessonId: '...' }, '*')
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 4: Milestone Checklist -->
+    <div class="slide" id="slide-4">
+        <div class="max-w-5xl mx-auto w-full">
+            <h2 class="text-4xl font-black text-slate-900 mb-10 tracking-tight flex items-center gap-4">
+                <i class="fas fa-tasks text-emerald-500"></i> Implementation <span class="text-emerald-500">Checklist</span>
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="check-item flex items-center gap-4">
+                    <i class="fas fa-check-circle text-emerald-500"></i>
+                    <span class="font-bold text-slate-700">Vite + React Core Engine</span>
+                </div>
+                <div class="check-item flex items-center gap-4">
+                    <i class="fas fa-check-circle text-emerald-500"></i>
+                    <span class="font-bold text-slate-700">Dynamic PPTX Generation</span>
+                </div>
+                <div class="check-item flex items-center gap-4">
+                    <i class="fas fa-check-circle text-emerald-500"></i>
+                    <span class="font-bold text-slate-700">Markdown Log Viewer</span>
+                </div>
+                <div class="check-item flex items-center gap-4">
+                    <i class="fas fa-check-circle text-emerald-500"></i>
+                    <span class="font-bold text-slate-700">Global Branding & Authoring</span>
+                </div>
+                <div class="check-item flex items-center gap-4">
+                    <i class="fas fa-check-circle text-emerald-500"></i>
+                    <span class="font-bold text-slate-700">High-Impact Slide Content</span>
+                </div>
+                <div class="check-item flex items-center gap-4">
+                    <i class="fas fa-check-circle text-emerald-500"></i>
+                    <span class="font-bold text-slate-700">Cross-Frame Deep Linking</span>
+                </div>
+                <div class="check-item flex items-center gap-4">
+                    <i class="fas fa-check-circle text-emerald-500"></i>
+                    <span class="font-bold text-slate-700">Interactive Navigation Shell</span>
+                </div>
+                <div class="check-item flex items-center gap-4">
+                    <i class="fas fa-check-circle text-emerald-500"></i>
+                    <span class="font-bold text-slate-700">Git Version Control Audit</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 5: Path Forward -->
+    <div class="slide" id="slide-5">
+        <div class="max-w-4xl mx-auto w-full text-center">
+            <div class="w-24 h-24 bg-slate-900 rounded-[2rem] flex items-center justify-center text-white text-4xl mx-auto mb-10 shadow-2xl">
+                <i class="fas fa-flag-checkered"></i>
+            </div>
+            <h1 class="text-5xl font-black text-slate-900 mb-6 uppercase tracking-tight">Path Forward</h1>
+            <p class="text-xl text-slate-500 mb-12">The project is technically complete and ready for public presentation.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+                <div class="content-box p-8 border-l-8 border-slate-900">
+                    <h3 class="font-black text-slate-900 uppercase tracking-widest text-xs mb-2">Immediate Next Steps</h3>
+                    <p class="text-slate-600">Push repository to GitHub and verify all static assets load correctly in production environment.</p>
+                </div>
+                <div class="content-box p-8 border-l-8 border-sky-600">
+                    <h3 class="font-black text-sky-600 uppercase tracking-widest text-xs mb-2">Seminar Ready</h3>
+                    <p class="text-slate-600">Presentation is live for DBB Seminar 2026. All behavioral tests and logic validations are green.</p>
+                </div>
+            </div>
+            
+            <button 
+                onclick="window.parent.postMessage({ type: 'NAVIGATE', lessonId: 'lesson-1' }, '*')"
+                class="mt-12 px-10 py-4 bg-slate-900 text-white rounded-full font-bold hover:bg-sky-600 transition-all shadow-xl inline-flex items-center gap-3"
+            >
+                Restart Presentation <i class="fas fa-redo"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="slide-counter" id="counter">Slide 1 / 5</div>
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)" disabled>
+            <i class="fas fa-chevron-left"></i> Previous
+        </button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">
+            Next <i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 5;
+
+        const sessionDetails = {
+            1: {
+                title: "Session 1: Architecture",
+                body: "<ul><li>Established foundational standards in <b>GEMINI.md</b> for coding style and project context.</li><li>Selected <b>SPA architecture</b> using Vite and React for high performance.</li><li>Chose an <b>Iframe-based slide system</b> to ensure perfect CSS isolation between the main UI and lesson content.</li></ul>"
+            },
+            2: {
+                title: "Sessions 2-3: Setup",
+                body: "<ul><li>Initialized project environment with <b>TypeScript</b> and <b>TailwindCSS</b>.</li><li>Engineered the <b>Responsive Sidebar</b> navigation with state-driven active states.</li><li>Implemented the dynamic <b>Content Loader</b> that fetches HTML and Markdown assets asynchronously.</li></ul>"
+            },
+            3: {
+                title: "Sessions 4-8: Polish",
+                body: "<ul><li>Built high-fidelity views for <b>Title</b>, <b>Abstract</b>, and <b>Index</b> screens.</li><li>Integrated <b>pptxgenjs</b> for direct slide export capability.</li><li>Conducted a comprehensive <b>UI/UX audit</b>, shifting to an academic Slate/Sky color palette with Inter typography.</li></ul>"
+            },
+            4: {
+                title: "Sessions 9-10: Content",
+                body: "<ul><li>Added the <b>Demos</b> section to the navigation framework.</li><li>Refined all text content for a general audience, focusing on <b>impact</b> over jargon.</li><li>Created <b>Lesson 3</b> and built a specialized <b>Markdown viewer</b> with custom pagination logic.</li></ul>"
+            },
+            5: {
+                title: "Sessions 11-12: Proof",
+                body: "<ul><li>Integrated <b>empirical evidence</b> by analyzing Git logs from real-world migration projects.</li><li>Developed specialized slide layouts for <b>Lesson 1</b> and <b>Lesson 2</b>.</li><li>Ensured all interactive elements (buttons, links) work perfectly across all viewports.</li></ul>"
+            },
+            6: {
+                title: "Session 13: Deployment",
+                body: "<ul><li>Implemented the <b>Cross-Iframe Navigation Protocol</b> using window message passing.</li><li>Finalized <b>Git repository</b> structure and prepared for deployment.</li><li>Performed a final <b>behavioral specification audit</b> to ensure all project goals were met.</li></ul>"
+            }
+        };
+
+        function showDetails(sessionId) {
+            const detail = sessionDetails[sessionId];
+            document.getElementById('modal-title').innerText = detail.title;
+            document.getElementById('modal-body').innerHTML = `<div class="prose prose-slate prose-lg max-w-none prose-li:mb-4 prose-li:list-disc prose-ul:pl-5">${detail.body}</div>`;
+            document.getElementById('modal-overlay').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('modal-overlay').classList.remove('active');
+        }
+
+        window.onload = () => {
+            const params = new URLSearchParams(window.location.search);
+            const slideReq = params.get('slide');
+            if (slideReq) goToSlide(parseInt(slideReq));
+        };
+
+        function updateNavigation() {
+            document.getElementById('prevBtn').disabled = currentSlide === 1;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides;
+            document.getElementById('counter').innerText = `Slide ${currentSlide} / ${totalSlides}`;
+        }
+
+        function goToSlide(n) {
+            document.getElementById(`slide-${currentSlide}`).classList.remove('active');
+            currentSlide = n;
+            document.getElementById(`slide-${currentSlide}`).classList.add('active');
+            updateNavigation();
+        }
+
+        function changeSlide(direction) {
+            document.getElementById(`slide-${currentSlide}`).classList.remove('active');
+            currentSlide += direction;
+            document.getElementById(`slide-${currentSlide}`).classList.add('active');
+            updateNavigation();
+        }
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' && currentSlide < totalSlides) changeSlide(1);
+            if (e.key === 'ArrowLeft' && currentSlide > 1) changeSlide(-1);
+            if (e.key === 'Escape') closeModal();
+        });
+    </script>
+</body>
+</html>

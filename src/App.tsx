@@ -41,9 +41,18 @@ const demos = [
   { 
     id: 'lesson-x', 
     title: 'Development Process Log', 
-    path: '/content/lesson-x.md',
+    path: '/content/lesson-x.html',
     highlights: ['Tracking Decisions', 'Fixing Problems', 'Step-by-Step History']
   },
+]
+
+const conclusions = [
+  {
+    id: 'conclusion',
+    title: 'Summary & Take-Home',
+    path: '/content/conclusion.html',
+    highlights: ['Key Takeaways', 'The Future of Research', 'Final Conclusion']
+  }
 ]
 
 type PageType = 'intro' | 'session' | 'checklist' | 'summary';
@@ -162,6 +171,24 @@ function MarkdownViewer({ path }: { path: string }) {
   );
 }
 
+const presentationHighlights = [
+  {
+    title: 'A World Transformed by AI',
+    subtitle: '01. Background',
+    content: 'AI has fundamentally changed the world, with new functionalities emerging every month. Everyone has their own unique experiences, and it is crucial to share these insights—even if they are still immature—to collectively navigate this shift.'
+  },
+  {
+    title: 'Lessons from 2026',
+    subtitle: '02. Results',
+    content: 'This presentation shares two major lessons learned since the start of 2026, focusing on how we work with AI and the rapid way we can now build new tools.'
+  },
+  {
+    title: 'The 3-Day Development Proof',
+    subtitle: '03. Impact',
+    content: 'The application you see today was built entirely from scratch with AI in only three days. This shows how AI fundamentally changes our mindset when doing research and building projects.'
+  }
+];
+
 function App() {
   const [view, setView] = useState<'welcome' | 'highlights' | 'toc' | 'lesson'>('welcome')
   const [currentLesson, setCurrentLesson] = useState<string | null>(null)
@@ -177,16 +204,100 @@ function App() {
         if (slideIndex !== undefined) {
           setSlideRequest(slideIndex);
         }
+      } else if (event.data.type === 'EXPORT_SUMMARY') {
+        exportFullSummary();
       }
     };
     window.addEventListener('message', handleMessage);
     return () => window.removeEventListener('message', handleMessage);
   }, []);
 
-  const activeLesson = [...lessons, ...demos].find(l => l.id === currentLesson)
+  const activeLesson = [...lessons, ...demos, ...conclusions].find(l => l.id === currentLesson)
+
+  const exportFullSummary = async () => {
+    const pres = new pptxgen();
+    
+    // 1. Title Slide
+    const titleSlide = pres.addSlide();
+    titleSlide.background = { color: '0F172A' };
+    titleSlide.addText("Transforming Research with AI", { x: 0.5, y: 2, w: '90%', h: 1, fontSize: 36, color: '38BDF8', bold: true, align: 'center' });
+    titleSlide.addText("2026 Executive Summary & Lessons", { x: 0.5, y: 3, w: '90%', h: 0.5, fontSize: 20, color: 'F1F5F9', align: 'center' });
+    titleSlide.addText("Leihong Wu | DBB Seminar", { x: 0.5, y: 5, w: '90%', h: 0.3, fontSize: 14, color: '94A3B8', align: 'center' });
+
+    // 2. Highlights Slide
+    const hlSlide = pres.addSlide();
+    hlSlide.addText("Executive Highlights", { x: 0.5, y: 0.5, w: '90%', h: 0.5, fontSize: 28, color: '0F172A', bold: true });
+    presentationHighlights.forEach((hl, idx) => {
+      hlSlide.addText(hl.title, { x: 0.5, y: 1.5 + (idx * 1.5), w: '90%', h: 0.4, fontSize: 18, color: '0284C7', bold: true });
+      hlSlide.addText(hl.content, { x: 0.5, y: 2.0 + (idx * 1.5), w: '90%', h: 0.8, fontSize: 14, color: '475569' });
+    });
+
+    // 3. Lessons (Iterate through all lessons)
+    for (const lesson of lessons) {
+      // Section Header
+      const sectionSlide = pres.addSlide();
+      sectionSlide.background = { color: 'F1F5F9' };
+      sectionSlide.addText(lesson.title, { x: 0.5, y: 2.5, w: '90%', h: 1, fontSize: 28, color: '0F172A', bold: true, align: 'center' });
+      
+      // Fetch and parse content
+      try {
+        const response = await fetch(lesson.path);
+        const html = await response.text();
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const slides = doc.querySelectorAll('.slide');
+        
+        slides.forEach((slideEl) => {
+          const pSlide = pres.addSlide();
+          const h1 = slideEl.querySelector('h1')?.textContent || slideEl.querySelector('h2')?.textContent;
+          if (h1) pSlide.addText(h1, { x: 0.5, y: 0.5, w: '90%', h: 0.8, fontSize: 24, color: '0F172A', bold: true });
+          
+          const bullets: string[] = [];
+          slideEl.querySelectorAll('li, p, .take-home-card h3').forEach(el => {
+            const text = el.textContent?.trim();
+            if (text && text.length > 5 && !text.includes('Slide')) bullets.push(text);
+          });
+          
+          bullets.slice(0, 7).forEach((text, idx) => {
+            pSlide.addText(`• ${text}`, { x: 0.7, y: 1.5 + (idx * 0.5), w: '85%', h: 0.4, fontSize: 14, color: '475569' });
+          });
+        });
+      } catch (e) { console.error("Error exporting lesson:", lesson.id, e); }
+    }
+
+    // 4. Conclusion
+    const conclusion = conclusions[0];
+    const concHeader = pres.addSlide();
+    concHeader.background = { color: '0F172A' };
+    concHeader.addText("Final Summary & Take-Home", { x: 0.5, y: 2.5, w: '90%', h: 1, fontSize: 28, color: '38BDF8', bold: true, align: 'center' });
+
+    try {
+      const response = await fetch(conclusion.path);
+      const html = await response.text();
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+      doc.querySelectorAll('.slide').forEach(slideEl => {
+        const pSlide = pres.addSlide();
+        const h1 = slideEl.querySelector('h1')?.textContent || slideEl.querySelector('h2')?.textContent;
+        if (h1) pSlide.addText(h1, { x: 0.5, y: 0.5, w: '90%', h: 0.8, fontSize: 24, color: '0F172A', bold: true });
+        
+        const bullets: string[] = [];
+        slideEl.querySelectorAll('.take-home-card h3, .take-home-card p, li span').forEach(el => {
+          const text = el.textContent?.trim();
+          if (text) bullets.push(text);
+        });
+        
+        bullets.slice(0, 8).forEach((text, idx) => {
+          pSlide.addText(text, { x: 0.7, y: 1.5 + (idx * 0.5), w: '85%', h: 0.4, fontSize: 12, color: '475569' });
+        });
+      });
+    } catch (e) { console.error("Error exporting conclusion", e); }
+
+    pres.writeFile({ fileName: `Full_Research_Summary_2026.pptx` });
+  };
 
   const downloadPPTX = async (lessonId: string) => {
-    const lesson = [...lessons, ...demos].find(l => l.id === lessonId);
+    const lesson = [...lessons, ...demos, ...conclusions].find(l => l.id === lessonId);
     if (!lesson) return;
     const pres = new pptxgen();
     const titleSlide = pres.addSlide();
@@ -290,6 +401,17 @@ function App() {
                 <span className="font-medium truncate">{demo.title}</span>
               </div>
               <ChevronRight size={14} className={currentLesson === demo.id ? 'opacity-100' : 'opacity-0'} />
+            </button>
+          ))}
+
+          <div className="pt-4 pb-2 px-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">Closing</div>
+          {conclusions.map((conclusion) => (
+            <button key={conclusion.id} onClick={() => selectLesson(conclusion.id)} className={`w-full flex items-center justify-between p-3 rounded-lg transition-colors ${currentLesson === conclusion.id ? 'bg-sky-600 text-white' : 'hover:bg-slate-800 text-slate-400'}`}>
+              <div className="flex items-center gap-3 truncate">
+                <Flag size={14} />
+                <span className="font-medium truncate">{conclusion.title}</span>
+              </div>
+              <ChevronRight size={14} className={currentLesson === conclusion.id ? 'opacity-100' : 'opacity-0'} />
             </button>
           ))}
         </nav>
@@ -406,7 +528,7 @@ function App() {
                 <List className="text-sky-600" size={40} /> Presentation Index
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {lessons.map((lesson, idx) => (
+                {[...lessons, ...demos, ...conclusions].map((lesson, idx) => (
                   <div key={lesson.id} className="group bg-white p-8 rounded-[2rem] shadow-sm border border-slate-200 hover:shadow-2xl hover:border-sky-200 transition-all cursor-pointer" onClick={() => selectLesson(lesson.id)}>
                     <div className="flex justify-between items-start mb-6">
                       <div className="w-12 h-12 bg-slate-100 rounded-2xl flex items-center justify-center font-black text-xl text-slate-400 group-hover:bg-sky-600 group-hover:text-white transition-colors"> {idx + 1} </div>

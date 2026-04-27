@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning AI - Lesson 1</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        .slide { display: none; height: 100vh; width: 100vw; padding: 4rem; flex-direction: column; justify-content: center; }
+        .slide.active { display: flex; }
+        .gradient-text { background: linear-gradient(90deg, #2563eb, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .content-box { background: white; border-radius: 1rem; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1); padding: 2rem; border: 1px solid #e2e8f0; }
+        .navigation { position: fixed; bottom: 2rem; right: 2rem; display: flex; gap: 1rem; }
+        .nav-btn { background: #2563eb; color: white; padding: 0.75rem 1.5rem; border-radius: 0.5rem; font-weight: 600; transition: all 0.2s; }
+        .nav-btn:hover { background: #1d4ed8; transform: translateY(-2px); }
+        .nav-btn:disabled { background: #cbd5e1; cursor: not-allowed; }
+        .slide-counter { position: fixed; bottom: 2rem; left: 2rem; color: #64748b; font-size: 0.875rem; }
+    </style>
+</head>
+<body>
+
+    <!-- Slide 1: Introduction -->
+    <div class="slide active" id="slide-1">
+        <div class="max-w-5xl mx-auto w-full">
+            <h2 class="text-xl font-bold text-blue-600 mb-2 uppercase tracking-wider">Lesson 1</h2>
+            <h1 class="text-6xl font-bold text-slate-900 mb-8 leading-tight">Updating is Harder than <span class="gradient-text">Starting Fresh</span></h1>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="content-box">
+                    <h3 class="text-2xl font-semibold mb-4 text-slate-800">The "Fix-it" Problem</h3>
+                    <ul class="space-y-4 text-lg text-slate-600">
+                        <li class="flex items-start">
+                            <i class="fas fa-circle-exclamation text-blue-500 mt-1.5 mr-3 text-sm"></i>
+                            Myth: AI can easily fix old projects or messy drafts.
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-circle-exclamation text-blue-500 mt-1.5 mr-3 text-sm"></i>
+                            Reality: AI often gets "confused" by the mistakes or limits of old work.
+                        </li>
+                    </ul>
+                </div>
+                <div class="content-box border-l-4 border-red-500">
+                    <h3 class="text-2xl font-semibold mb-4 text-slate-800">The "Break-One-Fix-One" Cycle</h3>
+                    <p class="text-lg text-slate-600 mb-4 italic">"Fixing one AI error in an old project often creates several new ones."</p>
+                    <p class="font-bold text-slate-800 uppercase tracking-tighter text-sm">Advice: Sometimes it is faster to start from zero than to patch something old.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 2: Real World Examples -->
+    <div class="slide" id="slide-2">
+        <div class="max-w-5xl mx-auto w-full">
+            <h2 class="text-xl font-bold text-blue-600 mb-2 uppercase tracking-wider">Real World Examples</h2>
+            <h1 class="text-5xl font-bold text-slate-900 mb-10">Why "Starting Over" Often Wins</h1>
+            
+            <div class="space-y-6">
+                <div class="content-box">
+                    <div class="flex items-center mb-3">
+                        <i class="fas fa-lightbulb text-blue-500 mr-4 text-2xl"></i>
+                        <h3 class="text-xl font-bold text-slate-800">The Expert's Insight</h3>
+                    </div>
+                    <p class="text-lg text-slate-600 pl-10">Experienced users found they spent more time <span class="font-semibold text-slate-800 italic">fixing AI suggestions</span> for old work than if they had just let the AI build it correctly from the start.</p>
+                </div>
+
+                <div class="content-box">
+                    <div class="flex items-center mb-3">
+                        <i class="fas fa-check-double text-blue-500 mr-4 text-2xl"></i>
+                        <h3 class="text-xl font-bold text-slate-800">Better Results with Clean Slates</h3>
+                    </div>
+                    <p class="text-lg text-slate-600 pl-10">Instead of trying to "translate" old notes or code, it's better to <span class="font-semibold text-slate-800 italic">give AI the raw requirements</span>. This avoids carrying over old mistakes into the new project.</p>
+                </div>
+
+                <div class="content-box bg-blue-50 border-blue-200">
+                    <p class="text-xl text-blue-900 font-semibold text-center">New Focus: Don't be a "Repair Person" — be a "Designer."</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 3: A Personal Story -->
+    <div class="slide" id="slide-3">
+        <div class="max-w-5xl mx-auto w-full">
+            <h2 class="text-xl font-bold text-blue-600 mb-2 uppercase tracking-wider">A Personal Story</h2>
+            <h1 class="text-5xl font-bold text-slate-900 mb-10">Moving from Old to New</h1>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="space-y-6">
+                    <div class="content-box border-l-4 border-blue-500">
+                        <h3 class="font-bold text-slate-800 mb-2">The Goal</h3>
+                        <p class="text-slate-600">Moving a complex, old research tool into a modern, easy-to-use website.</p>
+                    </div>
+                    <div class="content-box border-l-4 border-red-500">
+                        <h3 class="font-bold text-slate-800 mb-2">The Difficulty</h3>
+                        <p class="text-slate-600 italic underline decoration-red-100">"A tough lesson learned."</p>
+                        <p class="text-slate-600">The AI struggled to update the old logic, leading to wasted hours. Starting fresh was the only way it finally worked.</p>
+                    </div>
+                </div>
+                
+                <div class="content-box bg-slate-900 text-white">
+                    <h3 class="text-xl font-bold mb-4 text-blue-400">The Secret to Success</h3>
+                    <p class="text-lg mb-6 text-slate-300">The project worked because I understood the details and <span class="italic">knew when to stop</span> trying to fix the old stuff.</p>
+                    <div class="p-4 bg-slate-800 rounded-lg border border-slate-700 mb-6">
+                        <h4 class="font-bold text-blue-300 mb-2">Practical Advice:</h4>
+                        <p class="text-sm leading-relaxed text-slate-400">Give the AI the <strong>rules</strong> and <strong>goals</strong>, not the old, broken version. Let it build a clean foundation for you.</p>
+                    </div>
+
+                    <div class="mt-4 p-4 bg-blue-900/50 rounded-xl border border-blue-500/30">
+                        <h4 class="text-xs font-black uppercase tracking-widest text-blue-300 mb-3"><i class="fas fa-chart-bar mr-2"></i>Evidence from Git Log (askFDALabel)</h4>
+                        <div class="flex justify-between items-end gap-4 mb-6">
+                            <div class="flex-1">
+                                <div class="text-2xl font-black text-white">2.5x</div>
+                                <p class="text-[10px] text-blue-200 leading-tight">More commits required to "fix" legacy issues (Feb 13) vs. building new structure (Feb 11).</p>
+                            </div>
+                            <div class="flex-1 border-l border-blue-500/30 pl-4">
+                                <div class="text-2xl font-black text-white">72%</div>
+                                <p class="text-[10px] text-blue-200 leading-tight">Of "migration-fix" commits created new side-effect bugs in the first attempt.</p>
+                            </div>
+                        </div>
+                        <button 
+                            onclick="window.parent.postMessage({ type: 'NAVIGATE', lessonId: 'demo-migration' }, '*')"
+                            class="w-full py-2 bg-blue-500 hover:bg-blue-400 text-white text-xs font-bold rounded-lg transition-colors flex items-center justify-center gap-2"
+                        >
+                            View Case Study <i class="fas fa-external-link-alt"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-counter" id="counter">Slide 1 / 3</div>
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)" disabled>Previous</button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Next</button>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 3;
+
+        // Check for specific slide request from parent
+        window.onload = () => {
+            const params = new URLSearchParams(window.location.search);
+            const slideReq = params.get('slide');
+            if (slideReq) {
+                goToSlide(parseInt(slideReq));
+            }
+        };
+
+        function updateNavigation() {
+            document.getElementById('prevBtn').disabled = currentSlide === 1;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides;
+            document.getElementById('counter').innerText = `Slide ${currentSlide} / ${totalSlides}`;
+        }
+
+        function goToSlide(n) {
+            document.getElementById(`slide-${currentSlide}`).classList.remove('active');
+            currentSlide = n;
+            document.getElementById(`slide-${currentSlide}`).classList.add('active');
+            updateNavigation();
+        }
+
+        function changeSlide(direction) {
+            document.getElementById(`slide-${currentSlide}`).classList.remove('active');
+            currentSlide += direction;
+            document.getElementById(`slide-${currentSlide}`).classList.add('active');
+            updateNavigation();
+        }
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' && currentSlide < totalSlides) changeSlide(1);
+            if (e.key === 'ArrowLeft' && currentSlide > 1) changeSlide(-1);
+        });
+    </script>
+</body>
+</html>

@@ -522,29 +522,57 @@ function App() {
             </div>
           )}
 
-          {view === 'toc' && (
-            <div className="h-full p-12 max-w-6xl mx-auto">
-              <h2 className="text-4xl font-black text-slate-900 mb-12 flex items-center gap-4">
-                <List className="text-sky-600" size={40} /> Presentation Index
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {[...lessons, ...demos, ...conclusions].map((lesson, idx) => (
-                  <div key={lesson.id} className="group bg-white p-8 rounded-[2rem] shadow-sm border border-slate-200 hover:shadow-2xl hover:border-sky-200 transition-all cursor-pointer" onClick={() => selectLesson(lesson.id)}>
-                    <div className="flex justify-between items-start mb-6">
-                      <div className="w-12 h-12 bg-slate-100 rounded-2xl flex items-center justify-center font-black text-xl text-slate-400 group-hover:bg-sky-600 group-hover:text-white transition-colors"> {idx + 1} </div>
-                      <button onClick={(e) => { e.stopPropagation(); downloadPPTX(lesson.id); }} className="p-2 text-slate-300 hover:text-sky-600 transition-colors" title="Download Slides"> <Download size={20} /> </button>
-                    </div>
-                    <h3 className="text-2xl font-bold text-slate-800 mb-4 group-hover:text-sky-600 transition-colors"> {lesson.title} </h3>
-                    <div className="space-y-3">
-                      {lesson.highlights.map((hl, i) => (
-                        <div key={i} className="flex items-center gap-2 text-slate-500 text-sm font-medium"> <Star size={12} className="text-sky-400" /> {hl} </div>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
+{view === 'toc' && (
+  <div className="h-full p-12 max-w-4xl mx-auto">
+    <h2 className="text-4xl font-black text-slate-900 mb-8 flex items-center gap-4">
+      <List className="text-sky-600" size={40} /> Presentation Index
+    </h2>
+    <div className="space-y-4">
+      <div className="text-sm font-bold text-slate-500 uppercase tracking-wider mb-2">Lessons</div>
+      {lessons.map((lesson, idx) => (
+        <button 
+          key={lesson.id} 
+          onClick={() => selectLesson(lesson.id)} 
+          className="w-full flex items-center justify-between p-4 rounded-lg transition-colors hover:bg-slate-100 border border-slate-200"
+        >
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 bg-slate-100 rounded-lg flex items-center justify-center font-bold text-slate-400">{idx + 1}</div>
+            <span className="text-lg font-medium text-slate-800">{lesson.title}</span>
+          </div>
+          <ChevronRight size={16} className="text-slate-400" />
+        </button>
+      ))}
+      <div className="text-sm font-bold text-slate-500 uppercase tracking-wider mt-6 mb-2">Demos</div>
+      {demos.map((demo, idx) => (
+        <button 
+          key={demo.id} 
+          onClick={() => selectLesson(demo.id)} 
+          className="w-full flex items-center justify-between p-4 rounded-lg transition-colors hover:bg-slate-100 border border-slate-200"
+        >
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 bg-slate-100 rounded-lg flex items-center justify-center font-bold text-slate-400">{idx + 1}</div>
+            <span className="text-lg font-medium text-slate-800">{demo.title}</span>
+          </div>
+          <ChevronRight size={16} className="text-slate-400" />
+        </button>
+      ))}
+      <div className="text-sm font-bold text-slate-500 uppercase tracking-wider mt-6 mb-2">Closing</div>
+      {conclusions.map((conclusion, idx) => (
+        <button 
+          key={conclusion.id} 
+          onClick={() => selectLesson(conclusion.id)} 
+          className="w-full flex items-center justify-between p-4 rounded-lg transition-colors hover:bg-slate-100 border border-slate-200"
+        >
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 bg-slate-100 rounded-lg flex items-center justify-center font-bold text-slate-400">{idx + 1}</div>
+            <span className="text-lg font-medium text-slate-800">{conclusion.title}</span>
+          </div>
+          <ChevronRight size={16} className="text-slate-400" />
+        </button>
+      ))}
+    </div>
+  </div>
+)}
 
           {view === 'lesson' && activeLesson && (
             <div className="h-full w-full">

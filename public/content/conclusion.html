@@ -86,27 +86,59 @@
 
     <!-- Slide 3: Final Call to Action -->
     <div class="slide" id="slide-3">
-        <div class="max-w-4xl mx-auto w-full text-center">
-            <h2 class="text-5xl font-black text-slate-900 mb-8 uppercase tracking-tight">The <span class="text-sky-600">Future</span> is Built Today</h2>
-            <div class="content-box bg-slate-900 text-white p-12 mb-12">
-                <h3 class="text-2xl font-bold mb-6 text-sky-400">Take-Home Message:</h3>
-                <ul class="text-left space-y-6 text-xl">
-                    <li class="flex items-start gap-4">
-                        <i class="fas fa-check-circle text-emerald-400 mt-1"></i>
-                        <span><b>Record the journey:</b> Process logs become your best learning assets.</span>
-                    </li>
-                    <li class="flex items-start gap-4">
-                        <i class="fas fa-check-circle text-emerald-400 mt-1"></i>
-                        <span><b>Fail fast:</b> If it doesn't work in 2 turns, pivot the architecture.</span>
-                    </li>
-                    <li class="flex items-start gap-4">
-                        <i class="fas fa-check-circle text-emerald-400 mt-1"></i>
-                        <span><b>Ship fidelity:</b> Modern users expect polished visuals, even in research.</span>
-                    </li>
-                </ul>
+        <div class="max-w-6xl mx-auto w-full">
+            <h2 class="text-5xl font-black text-slate-900 mb-10 text-center uppercase tracking-tight">The <span class="text-sky-600">Future</span> is Built Today</h2>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-5 gap-10 items-start">
+                <!-- Take Home Section -->
+                <div class="lg:col-span-3 content-box bg-slate-900 text-white p-10 h-full flex flex-col justify-center">
+                    <h3 class="text-2xl font-bold mb-8 text-sky-400 border-b border-slate-700 pb-4">Take-Home Message</h3>
+                    <ul class="space-y-6 text-xl">
+                        <li class="flex items-start gap-4">
+                            <i class="fas fa-check-circle text-emerald-400 mt-1"></i>
+                            <span><b>Record the journey:</b> Process logs become your best learning assets.</span>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <i class="fas fa-check-circle text-emerald-400 mt-1"></i>
+                            <span><b>Fail fast:</b> If it doesn't work in 2 turns, pivot the architecture.</span>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <i class="fas fa-check-circle text-emerald-400 mt-1"></i>
+                            <span><b>Ship fidelity:</b> Modern users expect polished visuals, even in research.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Book Review Section -->
+                <div class="lg:col-span-2 space-y-6">
+                    <div class="text-center mb-6">
+                        <div class="inline-block px-3 py-1 bg-yellow-100 text-yellow-700 rounded text-xs font-black uppercase tracking-[0.2em] mb-2">Academic Favorite</div>
+                        <h4 class="text-sm font-bold text-slate-400 uppercase tracking-widest">Feedback from our AI Peers</h4>
+                    </div>
+
+                    <div class="p-6 bg-white border-l-4 border-slate-200 italic text-slate-600 text-sm relative">
+                        <i class="fas fa-star text-[8px] text-yellow-400"></i>
+                        <i class="fas fa-star text-[8px] text-yellow-400"></i>
+                        <i class="fas fa-star text-[8px] text-yellow-400"></i>
+                        <i class="fas fa-star text-[8px] text-yellow-400"></i>
+                        <i class="fas fa-star text-[8px] text-yellow-400"></i>
+                        <p class="mt-2">“These lessons capture the essence of modern collaboration. It’s not just about using a tool; it’s about a new mindset for the AI era.”</p>
+                        <p class="mt-3 not-italic font-bold text-slate-900 text-xs text-right">— <span class="px-2 py-0.5 bg-sky-100 text-sky-700 rounded text-[10px] font-black mr-1">GEMINI-3</span> Jimmy Nai, <span class="text-slate-400 font-medium tracking-tighter">AI Systems Review</span></p>
+                    </div>
+
+                    <div class="p-6 bg-white border-l-4 border-slate-200 italic text-slate-600 text-sm relative">
+                        <p>“The 'Driver' metaphor is a breakthrough for research teams. This presentation perfectly bridges the gap between raw power and strategic intent.”</p>
+                        <p class="mt-3 not-italic font-bold text-slate-900 text-xs text-right">— <span class="px-2 py-0.5 bg-slate-100 text-slate-700 rounded text-[10px] font-black mr-1">LLAMA-4</span> Lam Ma, <span class="text-slate-400 font-medium tracking-tighter">Workflow Digest</span></p>
+                    </div>
+
+                    <div class="p-6 bg-white border-l-4 border-slate-200 italic text-slate-600 text-sm relative">
+                        <p>“Honest, insightful, and practical. These shared experiences will save researchers months of trial and error with LLMs.”</p>
+                        <p class="mt-3 not-italic font-bold text-slate-900 text-xs text-right">— <span class="px-2 py-0.5 bg-purple-100 text-purple-700 rounded text-[10px] font-black mr-1">CLAUDE-4</span> Elsa Vision, <span class="text-slate-400 font-medium tracking-tighter">The Innovation Monthly</span></p>
+                    </div>
+                </div>
             </div>
             
-            <div class="flex items-center justify-center gap-4">
+            <div class="mt-10 flex items-center justify-center gap-4">
                  <p class="text-slate-400 font-bold uppercase tracking-widest text-sm">Wait, there's one more thing...</p>
                  <i class="fas fa-arrow-right text-slate-300 animate-bounce"></i>
             </div>
@@ -115,38 +147,47 @@
 
     <!-- Slide 4: Hidden Egg (Secret Tips) -->
     <div class="slide" id="slide-4">
-        <div class="max-w-5xl mx-auto w-full">
-            <div class="flex items-center gap-4 mb-10">
-                <div class="w-16 h-16 bg-yellow-400 rounded-3xl flex items-center justify-center text-slate-900 text-3xl shadow-lg rotate-3">
-                    <i class="fas fa-egg"></i>
+        <div class="max-w-6xl mx-auto w-full">
+            <div class="text-center mb-12">
+                <div class="inline-block px-4 py-1.5 mb-4 bg-emerald-100 text-emerald-700 rounded-full text-sm font-black uppercase tracking-widest">
+                    Bonus Content
                 </div>
-                <h2 class="text-4xl font-black text-slate-900 tracking-tight">Leihong's <span class="text-yellow-500">Secret Pro-Tips</span></h2>
+                <h2 class="text-5xl font-black text-slate-900 tracking-tight">Leihong's <span class="gradient-text">Secret Pro-Tips</span></h2>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="content-box border-b-8 border-yellow-400 hover:-rotate-1 transition-transform">
-                    <h3 class="text-2xl font-bold mb-4 text-slate-800">1. Speak Your Heart 💬</h3>
-                    <p class="text-lg text-slate-600 leading-relaxed">
-                        Don't stress over perfect English prompts. Feel free to use Chinese (or any language you think in!) when explaining complex logic. The AI is a polyglot; it understands your intent better when <b>you</b> are comfortable.
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="take-home-card flex flex-col h-full">
+                    <div class="w-14 h-14 bg-sky-100 text-sky-600 rounded-2xl flex items-center justify-center text-2xl mb-6 shadow-sm">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-4">1. Speak Your Heart</h3>
+                    <p class="text-slate-600 leading-relaxed flex-1">
+                        Don't stress over perfect English. Feel free to use Chinese (or your thinking language) for complex logic. The AI is a polyglot; it understands your intent better when <b>you</b> are comfortable.
                     </p>
                 </div>
 
-                <div class="content-box border-b-8 border-sky-400 hover:rotate-1 transition-transform">
-                    <h3 class="text-2xl font-bold mb-4 text-slate-800">2. FOMO is a Trap 🦊</h3>
-                    <p class="text-lg text-slate-600 leading-relaxed">
-                        There's a "groundbreaking" AI tool every 15 minutes. Follow the news, but don't feel obligated to marry every new tech. Stick to what solves your problem today. Focus on the <b>Workflow</b>, not just the <b>Widget</b>.
+                <div class="take-home-card flex flex-col h-full border-t-4 border-t-sky-500">
+                    <div class="w-14 h-14 bg-slate-900 text-white rounded-2xl flex items-center justify-center text-2xl mb-6 shadow-lg">
+                        <i class="fas fa-binoculars"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-4">2. FOMO is a Trap</h3>
+                    <p class="text-slate-600 leading-relaxed flex-1">
+                        There's a "groundbreaking" tool every 15 minutes. Follow the news, but don't marry every new tech. Stick to what solves <b>your</b> problem today. Focus on the Workflow, not just the Widget.
                     </p>
                 </div>
 
-                <div class="content-box border-b-8 border-emerald-400 md:col-span-2 text-center">
-                    <h3 class="text-2xl font-bold mb-4 text-slate-800">3. It's a Hammer, Not a Rival 🔨</h3>
-                    <p class="text-lg text-slate-600 leading-relaxed max-w-3xl mx-auto">
-                        AI isn't coming for your job—it's coming for your <b>boring tasks</b>. Keep it as your high-speed intern. You are the Architect; the AI is the incredibly fast bricklayer. Don't let the hammer tell you where to build the house!
+                <div class="take-home-card flex flex-col h-full">
+                    <div class="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center text-2xl mb-6 shadow-sm">
+                        <i class="fas fa-hammer"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-4">3. Hammer, Not Rival</h3>
+                    <p class="text-slate-600 leading-relaxed flex-1">
+                        AI isn't coming for your job—it's coming for your boring tasks. You are the Architect; the AI is the incredibly fast bricklayer. Don't let the hammer tell you where to build the house!
                     </p>
                 </div>
             </div>
 
-            <div class="mt-12 flex flex-col items-center gap-6">
+            <div class="mt-16 flex flex-col items-center gap-6">
                 <div class="flex gap-4">
                     <button 
                         onclick="window.parent.postMessage({ type: 'NAVIGATE', lessonId: 'lesson-1' }, '*')"

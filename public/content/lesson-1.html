@@ -1,138 +1,464 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Learning AI - Lesson 1</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
-        .slide { display: none; height: 100vh; width: 100vw; padding: 4rem; flex-direction: column; justify-content: center; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+        :root{
+            --bg:#f8fafc;
+            --ink:#0f172a;
+            --muted:#475569;
+            --line:#e2e8f0;
+            --blue:#2563eb;
+            --indigo:#4f46e5;
+            --violet:#7c3aed;
+            --green:#059669;
+            --red:#dc2626;
+            --amber:#d97706;
+            --soft-blue:#eff6ff;
+            --soft-red:#fef2f2;
+            --soft-green:#ecfdf5;
+            --soft-amber:#fffbeb;
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background:
+                radial-gradient(circle at top left, #eef4ff 0%, transparent 28%),
+                radial-gradient(circle at top right, #f4efff 0%, transparent 22%),
+                var(--bg);
+            color: var(--ink);
+            overflow: hidden;
+        }
+
+        .slide {
+            display: none;
+            height: 100vh;
+            width: 100vw;
+            padding: 3rem 4rem 5.5rem 4rem;
+            flex-direction: column;
+            justify-content: center;
+        }
         .slide.active { display: flex; }
-        .gradient-text { background: linear-gradient(90deg, #2563eb, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .content-box { background: white; border-radius: 1rem; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1); padding: 2rem; border: 1px solid #e2e8f0; }
-        .navigation { position: fixed; bottom: 2rem; right: 2rem; display: flex; gap: 1rem; }
-        .nav-btn { background: #2563eb; color: white; padding: 0.75rem 1.5rem; border-radius: 0.5rem; font-weight: 600; transition: all 0.2s; }
-        .nav-btn:hover { background: #1d4ed8; transform: translateY(-2px); }
-        .nav-btn:disabled { background: #cbd5e1; cursor: not-allowed; }
-        .slide-counter { position: fixed; bottom: 2rem; left: 2rem; color: #64748b; font-size: 0.875rem; }
+
+        .gradient-text {
+            background: linear-gradient(90deg, var(--blue), var(--violet));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .content-box {
+            background: rgba(255,255,255,0.92);
+            border-radius: 1.25rem;
+            box-shadow: 0 16px 40px -24px rgba(15, 23, 42, 0.35);
+            padding: 1.6rem;
+            border: 1px solid var(--line);
+            backdrop-filter: blur(8px);
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            border-radius: 999px;
+            padding: 0.35rem 0.8rem;
+            font-size: 0.84rem;
+            font-weight: 700;
+            letter-spacing: 0.01em;
+            border: 1px solid transparent;
+            white-space: nowrap;
+        }
+
+        .pill-blue { background: var(--soft-blue); color: #1d4ed8; border-color: #bfdbfe; }
+        .pill-red { background: var(--soft-red); color: #b91c1c; border-color: #fecaca; }
+        .pill-green { background: var(--soft-green); color: #047857; border-color: #a7f3d0; }
+        .pill-amber { background: var(--soft-amber); color: #b45309; border-color: #fde68a; }
+
+        .stat-card {
+            border-radius: 1rem;
+            padding: 1rem 1.1rem;
+            border: 1px solid var(--line);
+            background: linear-gradient(180deg, #ffffff 0%, #fafcff 100%);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: -0.03em;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--muted);
+            margin-top: 0.45rem;
+            line-height: 1.35;
+        }
+
+        .callout-quote {
+            border-left: 4px solid var(--blue);
+            background: linear-gradient(90deg, #eff6ff 0%, #ffffff 100%);
+        }
+
+        .source-note {
+            font-size: 0.72rem;
+            line-height: 1.35;
+            color: #64748b;
+        }
+
+        .tiny-note {
+            font-size: 0.68rem;
+            color: #64748b;
+            line-height: 1.3;
+        }
+
+        .workflow-step {
+            position: relative;
+            padding-left: 1rem;
+        }
+        .workflow-step:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0.45rem;
+            width: 0.45rem;
+            height: 0.45rem;
+            border-radius: 999px;
+            background: linear-gradient(180deg, var(--blue), var(--violet));
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 1rem;
+        }
+
+        .nav-btn {
+            background: var(--blue);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.8rem;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 10px 20px -14px rgba(37, 99, 235, 0.8);
+        }
+        .nav-btn:hover {
+            background: #1d4ed8;
+            transform: translateY(-1px);
+        }
+        .nav-btn:disabled {
+            background: #cbd5e1;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+
+        .slide-counter {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            color: #64748b;
+            font-size: 0.9rem;
+            font-weight: 600;
+            z-index: 20;
+        }
+
+        .footer-band {
+            position: absolute;
+            left: 4rem;
+            right: 4rem;
+            bottom: 1.4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            gap: 1rem;
+            color: #64748b;
+            font-size: 0.72rem;
+        }
+
+        .section-label {
+            font-size: 0.9rem;
+            font-weight: 800;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--blue);
+            margin-bottom: 0.6rem;
+        }
+
+        .divider {
+            height: 1px;
+            width: 100%;
+            background: linear-gradient(90deg, transparent, #cbd5e1, transparent);
+        }
+
+        .mini-chart-wrap {
+            background: #ffffff;
+            border: 1px solid var(--line);
+            border-radius: 1rem;
+            padding: 1rem;
+        }
+
+        .ref-list li { margin-bottom: 0.65rem; }
+
+        @media (max-width: 900px) {
+            .slide { padding: 2rem 1.25rem 5rem 1.25rem; }
+            .footer-band { left: 1.25rem; right: 1.25rem; }
+        }
     </style>
 </head>
 <body>
 
-    <!-- Slide 1: Introduction -->
+    <!-- Slide 1 -->
     <div class="slide active" id="slide-1">
-        <div class="max-w-5xl mx-auto w-full">
+        <div class="max-w-6xl mx-auto w-full">
             <h2 class="text-xl font-bold text-blue-600 mb-2 uppercase tracking-wider">Lesson 1</h2>
-            <h1 class="text-6xl font-bold text-slate-900 mb-8 leading-tight">Updating is Harder than <span class="gradient-text">Starting Fresh</span></h1>
-            
+            <h1 class="text-6xl font-bold text-slate-900 mb-6 leading-tight">
+                Why AI struggles more with <span class="gradient-text">fixing</span> than creating
+            </h1>
+
+            <p class="text-2xl text-slate-600 mb-10 max-w-4xl leading-relaxed">
+                It feels natural to ask AI to improve existing work.  
+                But in practice, starting from a clean specification is often faster and more reliable.
+            </p>
+
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+                <!-- Left: Intuition -->
                 <div class="content-box">
-                    <h3 class="text-2xl font-semibold mb-4 text-slate-800">The "Fix-it" Problem</h3>
+                    <h3 class="text-2xl font-semibold mb-4 text-slate-800">The intuition</h3>
                     <ul class="space-y-4 text-lg text-slate-600">
                         <li class="flex items-start">
-                            <i class="fas fa-circle-exclamation text-blue-500 mt-1.5 mr-3 text-sm"></i>
-                            Myth: AI can easily fix old projects or messy drafts.
+                            <i class="fas fa-lightbulb text-blue-500 mt-1.5 mr-3 text-sm"></i>
+                            AI is good at generating complete solutions from clear instructions.
                         </li>
                         <li class="flex items-start">
-                            <i class="fas fa-circle-exclamation text-blue-500 mt-1.5 mr-3 text-sm"></i>
-                            Reality: AI often gets "confused" by the mistakes or limits of old work.
+                            <i class="fas fa-code-branch text-blue-500 mt-1.5 mr-3 text-sm"></i>
+                            Editing requires understanding messy context and preserving hidden constraints.
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-repeat text-blue-500 mt-1.5 mr-3 text-sm"></i>
+                            This often leads to a loop: fix → break → re-prompt → repeat.
                         </li>
                     </ul>
                 </div>
-                <div class="content-box border-l-4 border-red-500">
-                    <h3 class="text-2xl font-semibold mb-4 text-slate-800">The "Break-One-Fix-One" Cycle</h3>
-                    <p class="text-lg text-slate-600 mb-4 italic">"Fixing one AI error in an old project often creates several new ones."</p>
-                    <p class="font-bold text-slate-800 uppercase tracking-tighter text-sm">Advice: Sometimes it is faster to start from zero than to patch something old.</p>
+
+                <!-- Right: Your experience -->
+                <div class="content-box border-l-4 border-blue-500">
+                    <h3 class="text-2xl font-semibold mb-4 text-slate-800">A recurring experience</h3>
+                    <p class="text-lg text-slate-600 mb-4 italic">
+                        “I kept trying to get AI to fix an existing system… but every fix introduced new issues.”
+                    </p>
+                    <p class="text-lg text-slate-600 mb-4">
+                        Eventually, starting from a clean design with clear requirements worked immediately.
+                    </p>
+                    <p class="font-semibold text-slate-800">
+                        The surprising part: starting over was faster than fixing.
+                    </p>
                 </div>
+
+            </div>
+
+            <div class="mt-10 p-6 bg-blue-50 border border-blue-200 rounded-2xl text-center">
+                <p class="text-2xl font-semibold text-blue-900">
+                    Key idea: AI performs best when you define the goal — not when you patch the past.
+                </p>
             </div>
         </div>
     </div>
 
-    <!-- Slide 2: Real World Examples -->
     <div class="slide" id="slide-2">
-        <div class="max-w-5xl mx-auto w-full">
-            <h2 class="text-xl font-bold text-blue-600 mb-2 uppercase tracking-wider">Real World Examples</h2>
-            <h1 class="text-5xl font-bold text-slate-900 mb-10">Why "Starting Over" Often Wins</h1>
-            
-            <div class="space-y-6">
+        <div class="max-w-6xl mx-auto w-full">
+            <h2 class="text-xl font-bold text-blue-600 mb-2 uppercase tracking-wider">Evidence</h2>
+            <h1 class="text-5xl font-bold text-slate-900 mb-8">
+                What research and practice show
+            </h1>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+                <!-- Left: Quantitative evidence -->
                 <div class="content-box">
-                    <div class="flex items-center mb-3">
-                        <i class="fas fa-lightbulb text-blue-500 mr-4 text-2xl"></i>
-                        <h3 class="text-xl font-bold text-slate-800">The Expert's Insight</h3>
+                    <h3 class="text-xl font-bold text-slate-800 mb-4">Measured outcomes</h3>
+
+                    <div class="space-y-5">
+
+                        <div>
+                            <div class="text-3xl font-bold text-red-600">19% slower</div>
+                            <p class="text-slate-600">
+                                Experienced developers using AI in real tasks took longer on average (METR, 2025).
+                            </p>
+                        </div>
+
+                        <div>
+                            <div class="text-3xl font-bold text-slate-900">44% accepted</div>
+                            <p class="text-slate-600">
+                                Less than half of AI-generated code was usable without modification.
+                            </p>
+                        </div>
+
+                        <div>
+                            <div class="text-3xl font-bold text-blue-600">+27% accuracy</div>
+                            <p class="text-slate-600">
+                                Providing missing context significantly improves AI editing performance.
+                            </p>
+                        </div>
+
                     </div>
-                    <p class="text-lg text-slate-600 pl-10">Experienced users found they spent more time <span class="font-semibold text-slate-800 italic">fixing AI suggestions</span> for old work than if they had just let the AI build it correctly from the start.</p>
                 </div>
 
+                <!-- Right: Why this happens -->
                 <div class="content-box">
-                    <div class="flex items-center mb-3">
-                        <i class="fas fa-check-double text-blue-500 mr-4 text-2xl"></i>
-                        <h3 class="text-xl font-bold text-slate-800">Better Results with Clean Slates</h3>
-                    </div>
-                    <p class="text-lg text-slate-600 pl-10">Instead of trying to "translate" old notes or code, it's better to <span class="font-semibold text-slate-800 italic">give AI the raw requirements</span>. This avoids carrying over old mistakes into the new project.</p>
+                    <h3 class="text-xl font-bold text-slate-800 mb-4">Why this happens</h3>
+
+                    <ul class="space-y-4 text-lg text-slate-600">
+                        <li class="flex items-start">
+                            <i class="fas fa-brain text-blue-500 mt-1.5 mr-3 text-sm"></i>
+                            AI optimizes for complete solutions, not minimal edits.
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-layer-group text-blue-500 mt-1.5 mr-3 text-sm"></i>
+                            Old work contains hidden assumptions and inconsistencies.
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-triangle-exclamation text-blue-500 mt-1.5 mr-3 text-sm"></i>
+                            Small changes can introduce unintended side effects.
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-repeat text-blue-500 mt-1.5 mr-3 text-sm"></i>
+                            Users enter re-prompting cycles instead of progressing.
+                        </li>
+                    </ul>
                 </div>
 
-                <div class="content-box bg-blue-50 border-blue-200">
-                    <p class="text-xl text-blue-900 font-semibold text-center">New Focus: Don't be a "Repair Person" — be a "Designer."</p>
-                </div>
+            </div>
+
+            <!-- Bottom synthesis -->
+            <div class="mt-10 p-6 bg-slate-900 text-white rounded-2xl text-center">
+                <p class="text-2xl font-semibold">
+                    Conclusion: Editing is a harder problem than generation — for both AI and humans.
+                </p>
             </div>
         </div>
     </div>
 
-    <!-- Slide 3: A Personal Story -->
+    <!-- Slide 3 -->
     <div class="slide" id="slide-3">
-        <div class="max-w-5xl mx-auto w-full">
-            <h2 class="text-xl font-bold text-blue-600 mb-2 uppercase tracking-wider">A Personal Story</h2>
-            <h1 class="text-5xl font-bold text-slate-900 mb-10">Moving from Old to New</h1>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="space-y-6">
-                    <div class="content-box border-l-4 border-blue-500">
-                        <h3 class="font-bold text-slate-800 mb-2">The Goal</h3>
-                        <p class="text-slate-600">Moving a complex, old research tool into a modern, easy-to-use website.</p>
-                    </div>
-                    <div class="content-box border-l-4 border-red-500">
-                        <h3 class="font-bold text-slate-800 mb-2">The Difficulty</h3>
-                        <p class="text-slate-600 italic underline decoration-red-100">"A tough lesson learned."</p>
-                        <p class="text-slate-600">The AI struggled to update the old logic, leading to wasted hours. Starting fresh was the only way it finally worked.</p>
-                    </div>
-                </div>
-                
-                <div class="content-box bg-slate-900 text-white">
-                    <h3 class="text-xl font-bold mb-4 text-blue-400">The Secret to Success</h3>
-                    <p class="text-lg mb-6 text-slate-300">The project worked because I understood the details and <span class="italic">knew when to stop</span> trying to fix the old stuff.</p>
-                    <div class="p-4 bg-slate-800 rounded-lg border border-slate-700 mb-6">
-                        <h4 class="font-bold text-blue-300 mb-2">Practical Advice:</h4>
-                        <p class="text-sm leading-relaxed text-slate-400">Give the AI the <strong>rules</strong> and <strong>goals</strong>, not the old, broken version. Let it build a clean foundation for you.</p>
+        <div class="max-w-6xl mx-auto w-full">
+            <div class="section-label">Real task example</div>
+            <h1 class="text-5xl font-extrabold text-slate-900 mb-4">
+                A real migration: <span class="gradient-text">Flask to Next.js</span>
+            </h1>
+            <p class="text-xl text-slate-600 max-w-5xl mb-8 leading-relaxed">
+                This lesson came from a real effort to migrate an older FDA labeling workflow from a
+                monolithic Flask application into a modern Next.js interface with cleaner structure,
+                better interaction patterns, and a more maintainable front end.
+            </p>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <!-- Left: project abstract -->
+                <div class="lg:col-span-12 content-box">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="pill pill-blue"><i class="fas fa-diagram-project"></i> Introduction</span>
                     </div>
 
-                    <div class="mt-4 p-4 bg-blue-900/50 rounded-xl border border-blue-500/30">
-                        <h4 class="text-xs font-black uppercase tracking-widest text-blue-300 mb-3"><i class="fas fa-chart-bar mr-2"></i>Evidence from Git Log (askFDALabel)</h4>
-                        <div class="flex justify-between items-end gap-4 mb-6">
-                            <div class="flex-1">
-                                <div class="text-2xl font-black text-white">2.5x</div>
-                                <p class="text-[10px] text-blue-200 leading-tight">More commits required to "fix" legacy issues (Feb 13) vs. building new structure (Feb 11).</p>
-                            </div>
-                            <div class="flex-1 border-l border-blue-500/30 pl-4">
-                                <div class="text-2xl font-black text-white">72%</div>
-                                <p class="text-[10px] text-blue-200 leading-tight">Of "migration-fix" commits created new side-effect bugs in the first attempt.</p>
-                            </div>
-                        </div>
+                    <div class="space-y-4 text-lg text-slate-700 leading-relaxed">
+                        <p>
+                            The goal was not a cosmetic rewrite. It required translating an older research tool into a
+                            more responsive, user-friendly application architecture while preserving core workflow logic.
+                        </p>
+                        <p>
+                            At first, the natural instinct was to let AI “update” the legacy implementation directly.
+                            In practice, that often created a repair cycle: one issue would be fixed, while another
+                            behavior or dependency would break.
+                        </p>
+                        <p>
+                            Progress improved only after shifting from <span class="font-semibold text-slate-900">patching old artifacts</span>
+                            to <span class="font-semibold text-slate-900">restating the requirements and redesigning the structure cleanly</span>.
+                        </p>
                         <button 
                             onclick="window.parent.postMessage({ type: 'NAVIGATE', lessonId: 'demo-migration' }, '*')"
-                            class="w-full py-2 bg-blue-500 hover:bg-blue-400 text-white text-xs font-bold rounded-lg transition-colors flex items-center justify-center gap-2"
-                        >
-                            View Case Study <i class="fas fa-external-link-alt"></i>
+                                class="w-full py-2 bg-blue-500 hover:bg-blue-400 text-white text-xs font-bold rounded-lg transition-colors flex items-center justify-center gap-2"
+                            >
+                            View Evidence <i class="fas fa-external-link-alt"></i>
                         </button>
                     </div>
                 </div>
             </div>
         </div>
+
+        <div class="footer-band">
+            <div class="source-note">
+                This slide introduces the real migration example that motivated the lesson.
+            </div>
+            <div class="tiny-note">Bridge from general evidence to concrete experience.</div>
+        </div>
     </div>
 
-    <div class="slide-counter" id="counter">Slide 1 / 3</div>
+    <!-- Slide 4 -->
+    <div class="slide" id="slide-4">
+        <div class="max-w-6xl mx-auto w-full">
+            <div class="section-label">References</div>
+            <h1 class="text-5xl font-extrabold text-slate-900 mb-8">Evidence behind this lesson</h1>
+
+            <div class="content-box">
+                <ol class="ref-list text-[1.03rem] text-slate-700 leading-relaxed list-decimal pl-6">
+                    <li>
+                        <strong>METR.</strong> <em>Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity</em>, July 10, 2025.
+                        Reported that experienced developers using AI took <strong>19% longer</strong> on average in a randomized controlled trial; developers expected AI to make them faster.
+                    </li>
+                    <li>
+                        <strong>Daye Nam et al.</strong> <em>Prompting LLMs for Code Editing: Struggles and Remedies</em>, arXiv:2504.20196, 2025.
+                        Found that frequent re-prompting is a marker of developer struggle and that inferring missing context improved edit correctness by <strong>27%</strong>.
+                    </li>
+                    <li>
+                        <strong>Priyanshu Gupta et al.</strong> <em>GrACE: Language Models Meet Code Edits</em>, ESEC/FSE 2023.
+                        Conditioning models on relevant prior edits improved top-1 correctly edited code by <strong>29%</strong> and <strong>54%</strong> over prior methods.
+                    </li>
+                    <li>
+                        <strong>METR.</strong> <em>Measuring AI Ability to Complete Long Tasks</em>, March 19, 2025.
+                        Reported that current frontier models succeed on very short tasks but have <strong>less than 10% success</strong> on tasks taking expert humans more than around <strong>4 hours</strong>.
+                    </li>
+                </ol>
+
+                <div class="divider my-6"></div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div class="rounded-2xl bg-slate-50 border border-slate-200 p-5">
+                        <div class="font-bold text-slate-900 mb-2">What the evidence suggests</div>
+                        <p class="text-slate-700 leading-relaxed">
+                            AI is not ineffective—but in complex, context-heavy tasks, 
+                            repeatedly fixing existing work often adds overhead instead of reducing it.
+                        </p>
+                    </div>
+
+                    <div class="rounded-2xl bg-blue-50 border border-blue-200 p-5">
+                        <div class="font-bold text-slate-900 mb-2">Recommended workflow</div>
+                        <p class="text-slate-700 leading-relaxed">
+                            Start with clear requirements, constraints, and examples. 
+                            Let AI generate from a clean slate, then review and integrate selectively.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-band">
+            <div class="source-note">All figures in this deck are recreated from reported findings for presentation use.</div>
+            <div class="tiny-note">Slide 4 / 4</div>
+        </div>
+    </div>
+
+    <div class="slide-counter" id="counter">Slide 1 / 4</div>
     <div class="navigation">
         <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)" disabled>Previous</button>
         <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Next</button>
@@ -140,14 +466,16 @@
 
     <script>
         let currentSlide = 1;
-        const totalSlides = 3;
+        const totalSlides = 4;
 
-        // Check for specific slide request from parent
         window.onload = () => {
             const params = new URLSearchParams(window.location.search);
             const slideReq = params.get('slide');
             if (slideReq) {
-                goToSlide(parseInt(slideReq));
+                const n = parseInt(slideReq, 10);
+                if (!isNaN(n) && n >= 1 && n <= totalSlides) {
+                    goToSlide(n);
+                }
             }
         };
 
@@ -165,11 +493,14 @@
         }
 
         function changeSlide(direction) {
+            const next = currentSlide + direction;
+            if (next < 1 || next > totalSlides) return;
             document.getElementById(`slide-${currentSlide}`).classList.remove('active');
-            currentSlide += direction;
+            currentSlide = next;
             document.getElementById(`slide-${currentSlide}`).classList.add('active');
             updateNavigation();
         }
+
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowRight' && currentSlide < totalSlides) changeSlide(1);
             if (e.key === 'ArrowLeft' && currentSlide > 1) changeSlide(-1);

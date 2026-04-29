@@ -395,70 +395,9 @@
                 </div>
             </div>
         </div>
-
-        <div class="footer-band">
-            <div class="source-note">
-                This slide introduces the real migration example that motivated the lesson.
-            </div>
-            <div class="tiny-note">Bridge from general evidence to concrete experience.</div>
-        </div>
     </div>
 
-    <!-- Slide 4 -->
-    <div class="slide" id="slide-4">
-        <div class="max-w-6xl mx-auto w-full">
-            <div class="section-label">References</div>
-            <h1 class="text-5xl font-extrabold text-slate-900 mb-8">Evidence behind this lesson</h1>
-
-            <div class="content-box">
-                <ol class="ref-list text-[1.03rem] text-slate-700 leading-relaxed list-decimal pl-6">
-                    <li>
-                        <strong>METR.</strong> <em>Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity</em>, July 10, 2025.
-                        Reported that experienced developers using AI took <strong>19% longer</strong> on average in a randomized controlled trial; developers expected AI to make them faster.
-                    </li>
-                    <li>
-                        <strong>Daye Nam et al.</strong> <em>Prompting LLMs for Code Editing: Struggles and Remedies</em>, arXiv:2504.20196, 2025.
-                        Found that frequent re-prompting is a marker of developer struggle and that inferring missing context improved edit correctness by <strong>27%</strong>.
-                    </li>
-                    <li>
-                        <strong>Priyanshu Gupta et al.</strong> <em>GrACE: Language Models Meet Code Edits</em>, ESEC/FSE 2023.
-                        Conditioning models on relevant prior edits improved top-1 correctly edited code by <strong>29%</strong> and <strong>54%</strong> over prior methods.
-                    </li>
-                    <li>
-                        <strong>METR.</strong> <em>Measuring AI Ability to Complete Long Tasks</em>, March 19, 2025.
-                        Reported that current frontier models succeed on very short tasks but have <strong>less than 10% success</strong> on tasks taking expert humans more than around <strong>4 hours</strong>.
-                    </li>
-                </ol>
-
-                <div class="divider my-6"></div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                    <div class="rounded-2xl bg-slate-50 border border-slate-200 p-5">
-                        <div class="font-bold text-slate-900 mb-2">What the evidence suggests</div>
-                        <p class="text-slate-700 leading-relaxed">
-                            AI is not ineffective—but in complex, context-heavy tasks, 
-                            repeatedly fixing existing work often adds overhead instead of reducing it.
-                        </p>
-                    </div>
-
-                    <div class="rounded-2xl bg-blue-50 border border-blue-200 p-5">
-                        <div class="font-bold text-slate-900 mb-2">Recommended workflow</div>
-                        <p class="text-slate-700 leading-relaxed">
-                            Start with clear requirements, constraints, and examples. 
-                            Let AI generate from a clean slate, then review and integrate selectively.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="footer-band">
-            <div class="source-note">All figures in this deck are recreated from reported findings for presentation use.</div>
-            <div class="tiny-note">Slide 4 / 4</div>
-        </div>
-    </div>
-
-    <div class="slide-counter" id="counter">Slide 1 / 4</div>
+    <div class="slide-counter" id="counter">Slide 1 / 3</div>
     <div class="navigation">
         <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)" disabled>Previous</button>
         <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Next</button>
@@ -466,7 +405,7 @@
 
     <script>
         let currentSlide = 1;
-        const totalSlides = 4;
+        const totalSlides = 3;
 
         window.onload = () => {
             const params = new URLSearchParams(window.location.search);
